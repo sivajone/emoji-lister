@@ -48,7 +48,4 @@ export default {
   vuetify:  {
     theme: {}
   },
-
-  // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {}
 }
