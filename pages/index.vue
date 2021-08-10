@@ -26,7 +26,7 @@
         <article class="py-10">
           <v-row justify="center">
               <Card
-                v-for="server in servers" 
+                v-for="server in servers"
                 :key="server.id"
                 :src="
                   'https://cdn.discordapp.com/icons/' +
