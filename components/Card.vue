@@ -43,12 +43,9 @@ export default {
 
 <style>
 .v-card {
-  transition: transform .4s ease-in-out;
+  transition: all .4s ease-in-out;
 }
 
-.v-card:not(.on-hover) {
-  transform: scale(1);
-}
 .v-card.on-hover {
   transform: scale(1.05);
  }

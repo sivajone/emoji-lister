@@ -77,12 +77,6 @@
 
 <script>
 export default {
-    props: {
-        name: {
-            type: String,
-            default: undefined
-        }
-    },
     async asyncData({ params}) {
         const id = await params.id // When calling /abc the slug will be "abc"
         return { id }
@@ -98,7 +92,7 @@ export default {
     },
     head() {
         return {
-            title: this.name
+            title: '😏'
         }
     },
     mounted() {
