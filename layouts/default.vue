@@ -25,7 +25,8 @@
 export default {
   data() {
     return {
-      darkTheme: localStorage.getItem('darkTheme') || true
+      // TODO localStorage
+      darkTheme: true
     }
   },
   mounted() {
@@ -34,7 +35,7 @@ export default {
   methods: {
     changeTheme() {
       this.$vuetify.theme.dark = this.darkTheme
-      localStorage.setItem('darkTheme', this.darkTheme)
+      // localStorage.setItem('darkTheme', this.darkTheme)
     }
   }
 }
