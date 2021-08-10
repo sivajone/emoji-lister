@@ -28,6 +28,9 @@ export default {
       darkTheme: localStorage.getItem('darkTheme')
     }
   },
+  mounted() {
+    this.$vuetify.theme.dark = this.darkTheme
+  },
   methods: {
     changeTheme() {
       this.$vuetify.theme.dark = this.darkTheme
