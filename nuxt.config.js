@@ -20,7 +20,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ['~/assets/transition.css'],
+  css: ['~/assets/main.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -38,19 +38,15 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-    // https://go.nuxtjs.dev/axios
-    // '@nuxtjs/axios',
-  ],
+  modules: [],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
-  vuetify: {
-    // customVariables: ['node_modules/nord/src/nord.scss'],
+  vuetify:  {
+    theme: {}
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
-  }
+  build: {}
 }
