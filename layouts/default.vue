@@ -25,7 +25,7 @@
 export default {
   data() {
     return {
-      darkTheme: localStorage.getItem('darkTheme')
+      darkTheme: localStorage.getItem('darkTheme') || true
     }
   },
   mounted() {

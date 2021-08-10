@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <v-container class="my-5">
     <section v-if="errored">
       <h1>{{error}}</h1>
     </section>
@@ -72,7 +72,7 @@
         </v-row>
       </article>
     </section>
-  </div>
+  </v-container>
 </template>
 
 <script>

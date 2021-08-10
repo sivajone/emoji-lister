@@ -54,7 +54,7 @@ export default {
   },
   data() {
     return {
-      token: null,
+      token: sessionStorage.getItem('token') || null,
       servers: null,
       loading: null,
       errored: false,
