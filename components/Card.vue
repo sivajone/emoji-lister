@@ -43,7 +43,7 @@ export default {
 
 <style>
 .v-card {
-  transition: all .4s ease-in-out;
+  transition: transform .4s ease-in-out;
 }
 
 .v-card.on-hover {

@@ -2,8 +2,8 @@
     <v-container class="d-flex flex-column items-center">
       <h1 class="text-center">Emoji lister</h1>
       <v-text-field
-      class="mt-3"
         v-model="token"
+        class="mt-3"
         label="token"
         outlined
         type="password"
@@ -13,8 +13,8 @@
         elevation="2"
         rounded
         x-large
-        @click="getServers"
         :loading="loading"
+        @click="getServers"
       >Get servers</v-btn>
 
       <section v-if="errored">
@@ -26,8 +26,8 @@
         <article class="py-10">
           <v-row justify="center">
               <Card
-                v-for="server in servers" :key="server.id"
-                :id="server.id"
+                v-for="server in servers" 
+                :key="server.id"
                 :src="
                   'https://cdn.discordapp.com/icons/' +
                   server.id +
