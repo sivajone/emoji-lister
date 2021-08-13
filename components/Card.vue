@@ -1,22 +1,25 @@
 <template>
-    <nuxt-link :to="'/' + id + '?name=' + name" style="text-decoration: none;">
-        <v-card
-            :elevation="hover ? 12 : 2"
-            class="ma-2"
-        >
-        <v-container fluid>
-            <v-img
-            :src="src"
-            height="256px"
-            width="256px"
-        />
+    <v-hover v-slot="{ hover }">
+        <nuxt-link :to="'/' + id + '?name=' + name" style="text-decoration: none;">
+            <v-card
+                :elevation="hover ? 12 : 2"
+                :class="{ 'on-hover': hover }"
+                class="ma-2"
+            >
+            <v-container fluid>
+                <v-img
+                :src="src"
+                height="256px"
+                width="256px"
+            />
 
-            <v-card-title class="subtitle-2">
-                {{ name }}
-            </v-card-title>
-        </v-container>
-        </v-card>
-    </nuxt-link>
+                <v-card-title class="subtitle-2">
+                    {{ name }}
+                </v-card-title>
+            </v-container>
+            </v-card>
+        </nuxt-link>
+    </v-hover>
 </template>
 
 <script>
@@ -40,10 +43,10 @@ export default {
 
 <style>
 .v-card {
-  transition: transform .4s ease-in-out;
+  transition: transform .4s ease-in-out !important;
 }
 
-.v-card:hover {
+.v-card.on-hover {
   transform: scale(1.05);
  }
 
