@@ -1,18 +1,20 @@
 <template>
-    <div class="d-flex flex-column container">
-      <h1>Emoji lister</h1>
+    <v-container class="d-flex flex-column items-center">
+      <h1 class="text-center">Emoji lister</h1>
       <v-text-field
-            v-model="token"
-            label="token"
-            outlined
-            type="password"
+        v-model="token"
+        class="mt-3"
+        label="token"
+        outlined
+        type="password"
       />
       <v-btn
         color="primary"
-        @click="getServers"
         elevation="2"
         rounded
         x-large
+        :loading="loading"
+        @click="getServers"
       >Get servers</v-btn>
 
       <section v-if="errored">
@@ -21,64 +23,48 @@
 
       <section v-else>
 
-        <v-progress-linear
-          v-if="loading"
-          indeterminate
-          reverse
-        ></v-progress-linear>
-
-        <article v-for="server in servers" :key="server.id">
+        <article class="py-10">
           <v-row justify="center">
-            <Card
-              v-if="server.icon.startsWith('a_')"
-              :id="server.id"
-              :src="
-                'https://cdn.discordapp.com/icons/' +
-                server.id +
-                '/' +
-                server.icon +
-                '.gif?size=256'
-              "
-              :name="server.name"
-            />
-            <Card v-else
-              :id="server.id"
-              :src="
-                'https://cdn.discordapp.com/icons/' +
-                server.id +
-                '/' +
-                server.icon +
-                '.webp?size=256'
-              "
-              :name="server.name"
-            />
+              <Card
+                v-for="server in servers"
+                :id="server.id"
+                :key="server.id"
+                :src="
+                  'https://cdn.discordapp.com/icons/' +
+                  server.id +
+                  '/' +
+                  server.icon + 
+                  checkType(server.icon) + 
+                  '?size=256'
+                "
+                :name="server.name"
+              />
           </v-row>
         </article>
       </section>
-    </div>
+    </v-container>
 </template>
 
 <script>
 import Card from "@/components/Card";
-import "@fontsource/montserrat";
 
 export default {
   name: "Home",
-  head() {
-    return {
-      title: 'Home'
-    }
-  },
   components: {
     Card,
   },
   data() {
     return {
-      token: null,
+      token: sessionStorage.getItem('token') || null,
       servers: null,
       loading: null,
       errored: false,
     };
+  },
+  head() {
+    return {
+      title: 'Home'
+    }
   },
   methods: {
     getServers() {
@@ -92,8 +78,8 @@ export default {
         .then(response => 
           response.json()
         )
-        .then(data => {
-          this.servers = data;
+        .then(data => { 
+          this.servers = data
         })
         .catch((error) => {
           console.error(error)
@@ -104,15 +90,34 @@ export default {
           sessionStorage.setItem("token", this.token);
         });
     },
+    checkType(hash) {
+      if (hash.toString().startsWith('a_')) {
+        return '.gif'
+      }
+      else {
+        return  '.webp'
+      }
+    }
   },
 };
 </script>
 
 <style lang="scss">
+@keyframes floating {
+  0% {
+    transform: rotate(5deg) scale(1);;
+  }
+  50% {
+    transform: rotate(-5deg) scale(1.2);
+  }
+  100% {
+    transform: rotate(5deg) scale(1);
+  }
+}
 .container {
-  font-family: 'Montserrat';
+  font-family: 'Montserrat', sans-serif;
   & > h1 {
-    text-align: center;
+    animation: floating 10s infinite ease-in-out;
   }
 }
 .v-input input {
