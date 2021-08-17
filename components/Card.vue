@@ -1,6 +1,6 @@
 <template>
     <v-hover v-slot="{ hover }">
-        <nuxt-link :to="'/' + id + '?name=' + name" style="text-decoration: none;">
+        <nuxt-link :to="'/' + id" style="text-decoration: none;">
             <v-card
                 :elevation="hover ? 12 : 2"
                 :class="{ 'on-hover': hover }"
@@ -28,7 +28,7 @@ export default {
         src: {
             type: String,
             default: null
-            }, 
+        }, 
         name: {
             type: String,
             default: null

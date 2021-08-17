@@ -1,17 +1,28 @@
 <template>
   <v-container class="my-5">
     <section v-if="errored">
-      <h1>{{error}}</h1>
+      <h1 class="text-center">{{error}}</h1>
     </section>
     <section v-else>
         
-      <v-progress-linear
-        v-if="loading"
-        indeterminate
-        reverse
-      ></v-progress-linear>
+    <article
+    v-if="loading"
+    >
+        <v-row justify="center">
+            <v-sheet
+                v-for="n in 20"
+                :key="n"
+                    class="d-flex ma-2"
+            >
+                    <v-skeleton-loader
+                    min-width="256"
+                    type="card"
+                    ></v-skeleton-loader>
+            </v-sheet>
+        </v-row>
+    </article>
 
-      <article>
+    <article>
         <v-row justify="center">
             <v-card 
             v-for="emoji in emojis" 
@@ -77,6 +88,11 @@
 
 <script>
 export default {
+    inject: {
+      theme: {
+        default: { isDark: false },
+      },
+    },
     async asyncData({ params }) {
         const id = await params.id // When calling /abc the slug will be "abc"
         return { id }
@@ -96,7 +112,7 @@ export default {
         }
     },
     mounted() {
-        fetch(`https://discordapp.com/api/guilds/${this.id}/emojis`, {
+        fetch(`https://discord.com/api/v9/guilds/${this.id}/emojis`, {
             headers: {
             "Content-Type": "application/json",
             Authorization: `${this.token}`,
@@ -105,6 +121,7 @@ export default {
         .then(response => {
             if (response.ok)  {
                 return response.json()
+
             }
 
             else if (response.status === 401) {
@@ -116,16 +133,25 @@ export default {
             }
         })
         .then(data => {
-            this.emojis = data
+            if (data.length > 0) {
+                this.emojis = data
+            }
+            else {
+                throw new Error('204')
+            }
         })
         .catch((error) => {
             this.errored = true;
             if (error.toString().endsWith('401')) {
-                this.error = "401 Bad Token"
+                this.error = "Bad Token"
             }
             else if (error.toString().endsWith('404')) {
-                this.error = "401 Server Not Found"
+                this.error = "Server Not Found"
             }
+            else if (error.toString().endsWith('204')) {
+                this.error = "There are no emojis in this server 😔"
+            }
+            console.log(error)
         })
         .finally(() => (this.loading = false));
     },

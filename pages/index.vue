@@ -29,14 +29,7 @@
                 v-for="server in servers"
                 :id="server.id"
                 :key="server.id"
-                :src="
-                  'https://cdn.discordapp.com/icons/' +
-                  server.id +
-                  '/' +
-                  server.icon + 
-                  checkType(server.icon) + 
-                  '?size=256'
-                "
+                :src="getUrl(server.id, server.icon)"
                 :name="server.name"
               />
           </v-row>
@@ -78,7 +71,7 @@ export default {
         .then(response => 
           response.json()
         )
-        .then(data => { 
+        .then(data => {           
           this.servers = data
         })
         .catch((error) => {
@@ -90,12 +83,12 @@ export default {
           sessionStorage.setItem("token", this.token);
         });
     },
-    checkType(hash) {
-      if (hash.toString().startsWith('a_')) {
-        return '.gif'
+    getUrl(id, hash) {
+      if (hash) {
+        return `https://cdn.discordapp.com/icons/${id}/${hash}.${(hash.toString().startsWith("a_") ? "gif" : "webp")}?size=256`
       }
       else {
-        return  '.webp'
+        return 'http://cdn3.crystalcommerce.com/themes/clients/elsewherecomics/assets/img/ui/no-image-available.png?1412807702'
       }
     }
   },
